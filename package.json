@@ -1,5 +1,5 @@
 {
-  "name": "epic-video-player",
+  "name": "@epiclabs/epic-video-player",
   "version": "0.0.1",
   "description": "Video player wrapper to support different video sources with unified interface",
   "main": "./evp.min.js",
@@ -52,5 +52,8 @@
     "uglifyjs-webpack-plugin": "2.1.1",
     "webpack": "4.29.0",
     "webpack-cli": "3.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
