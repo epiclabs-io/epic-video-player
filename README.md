@@ -2,9 +2,9 @@
 
 JS library to wrap different video libraries (at the moment, [dashjs](https://github.com/Dash-Industry-Forum/dash.js) and [hls.js](https://github.com/video-dev/hls.js)).
 
-*NB*: This library is in progress and it still lacks a lot of features that are needed to work with video in the real world. You are more than welcome to contribute, ask for features and buy me a beer (not PayPal, just ask me for my postal address and you can directly send me the beer :D).
+*NB*: This library is in progress and it still lacks a lot of features that are needed to work with video in the real world. You are more than welcome to contribute or ask for features.
 
-*NB2*: I am still fighting and learning on the best approach to bundle the solution. This is a first functional attempt but unfortunately the **typescript definitions are not available at this point**.
+*NB2*: This is a first working version but unfortunately the **typescript definitions are not available at this point**.
 
 # Installation
 
