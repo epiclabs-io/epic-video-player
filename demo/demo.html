@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>epic-video-player demo</title>
+    <script src="../dist/evp.min.js"></script>
+</head>
+<body>
+    <video id="my-video" style="width: 100%;" autoplay controls muted></video>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            window.myEvp = evp.newPlayer('https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd', document.getElementById('my-video'));
+            
+            myEvp.htmlPlayer.oncanplay = () => {
+                console.log('can play!');
+                myEvp.htmlPlayer.oncanplay = undefined;
+                myEvp.currentTime(14);
+            };
+        });
+    </script>
+</body>
+</html>
