@@ -14,7 +14,7 @@ const dev = {
   },
   output: {
     path: PATHS.bundle,
-    filename: '[name].js',
+    filename: 'index.js',
     libraryTarget: 'umd',
     library: 'evp',
     umdNamedDefine: true,
@@ -55,7 +55,7 @@ const prod = {
   },
   output: {
     path: PATHS.bundle,
-    filename: '[name].min.js',
+    filename: 'index.min.js',
     libraryTarget: 'umd',
     library: 'evp',
     umdNamedDefine: true,

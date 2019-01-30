@@ -7,6 +7,10 @@ This document will track the changes of this project, based on [Keep a Changelog
 - Add MP4 and WEBM compatibility.
 - Add Youtube compatibility.
 
-## [0.0.1]
+## [0.0.3] - 2019-01-30
+### [Fixed]
+- Npm publish process was failing due to wrong package.json definition.
+
+## [0.0.1] - 2019-01-30
 ### [Added]
 - Initial version.

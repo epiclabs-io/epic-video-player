@@ -1,8 +1,8 @@
 {
   "name": "@epiclabs/epic-video-player",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Video player wrapper to support different video sources with unified interface",
-  "main": "./evp.min.js",
+  "main": "./index.min.js",
   "scripts": {
     "_clean-lib": "rimraf lib",
     "_clean-dist": "rimraf dist",
@@ -11,10 +11,6 @@
     "build": "run-s _clean-dist _clean-lib _webpack _cp _clean-lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "files": [
-    "dist/**/*",
-    "LICENSE"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/epiclabs-io/epic-video-player.git"
