@@ -10,7 +10,9 @@
     "_bundle": "webpack",
     "_npm_ready": "cp-cli CHANGELOG.md ./dist/CHANGELOG.md && cp-cli LICENSE ./dist/LICENSE && cp-cli package.json ./dist/package.json && cp-cli README.md ./dist/README.md && cp-cli demo.html ./dist/demo.html",
     "build": "run-s _clean _bundle _transpile _npm_ready",
-    "test": "jest --coverage --env=jsdom"
+    "_lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "_utest": "jest --coverage --env=jsdom",
+    "test": "run-s _lint _utest"
   },
   "repository": {
     "type": "git",
@@ -40,7 +42,7 @@
   },
   "devDependencies": {
     "@types/hls.js": "0.12.1",
-    "@types/jest": "^23.3.13",
+    "@types/jest": "23.3.13",
     "@types/node": "10.12.18",
     "cp-cli": "1.1.2",
     "jest": "23.6.0",
@@ -49,6 +51,7 @@
     "ts-jest": "^23.10.5",
     "ts-loader": "5.3.3",
     "tslib": "1.9.3",
+    "tslint": "5.12.1",
     "typescript": "3.2.4",
     "uglifyjs-webpack-plugin": "2.1.1",
     "webpack": "4.29.0",

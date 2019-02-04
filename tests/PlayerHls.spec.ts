@@ -36,10 +36,9 @@ test('getCurrentRendition', () => {
 });
 
 test('convertLevelsToIRenditions', () => {
-    const evpInstance = new pHls.PlayerHls(url, videoElement, undefined);
-    expect(evpInstance.convertLevelsToIRenditions()).toBeUndefined();
+    expect(pHls.PlayerHls.convertLevelsToIRenditions()).toBeUndefined();
 
-    const renditions = evpInstance.convertLevelsToIRenditions([{"attrs":{"PROGRAM-ID":"1","BANDWIDTH":"246440","CODECS":"mp4a.40.5,avc1.42000d","RESOLUTION":"320x184","NAME":"240"},"url":["https://video-dev.github.io/streams/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"],"width":320,"height":184,"bitrate":246440,"name":"240","videoCodec":"avc1.42000d","audioCodec":"mp4a.40.5","unknownCodecs":[],"loadError":0,"fragmentError":false,"urlId":0}]);
+    const renditions = pHls.PlayerHls.convertLevelsToIRenditions([{"attrs":{"PROGRAM-ID":"1","BANDWIDTH":"246440","CODECS":"mp4a.40.5,avc1.42000d","RESOLUTION":"320x184","NAME":"240"},"url":["https://video-dev.github.io/streams/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"],"width":320,"height":184,"bitrate":246440,"name":"240","videoCodec":"avc1.42000d","audioCodec":"mp4a.40.5","unknownCodecs":[],"loadError":0,"fragmentError":false,"urlId":0}]);
     expect(renditions[0].audioCodec).toEqual("mp4a.40.5");
 });
 
