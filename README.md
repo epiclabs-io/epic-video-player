@@ -13,24 +13,40 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
     $ npm install epic-video-player
     ```
 
-2. Import it:
+# Using it as an old-school JS library
     ```
-    import * as evp from 'epic-video-player';
+    <head>
+        ...
+        <script src="bundle/index.min.js"></script>
+        ...
+    </head>
+    <body>
+        ...
+        <video id="my-video" style="width: 100%;" autoplay controls muted></video>
+        ...
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', () => {
+                var myEvp = evp.newPlayer('https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd', document.getElementById('my-video'));
+                myEvp.htmlPlayer.oncanplay = () => {
+                    myEvp.currentTime(14);
+                };
+            });
+        </script>
+        ...
+    </body>
     ```
 
-3. Make use of it:
+# Using it as CommonJS module
     ```
-    let myPlayer = evp.newPlayer('some-video-url', document.getElementById('html-video-id'));
+    import { newPlayer } from '@epiclabs/epic-video-player';
+    
+    ...
+
+    let myPlayer = newPlayer('some-video-url', document.getElementById('html-video-id'));
 
     myEvp.pause();
     myEvp.currentTime(10);
     myEvp.play();
-    ```
-
-4. The HTML ```<video>``` element has been also exposed, so you can operate directly against it:
-    ```
-    myPlayer.htmlPlayer.play();
-    
     ```
 
 # Development
