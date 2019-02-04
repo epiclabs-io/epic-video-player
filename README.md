@@ -4,8 +4,6 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
 
 *NB*: This library is in progress and it still lacks a lot of features that are needed to work with video in the real world. You are more than welcome to contribute or ask for features.
 
-*NB2*: This is a first working version but unfortunately the **typescript definitions are not available at this point**.
-
 # Installation
 
 1. Install the dependency into your project
@@ -13,7 +11,20 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
     $ npm install epic-video-player
     ```
 
-# Using it as an old-school JS library
+# Using it as CommonJS module
+    ```
+    import { newPlayer } from '@epiclabs/epic-video-player';
+    
+    ...
+
+    let myPlayer = newPlayer('some-video-url', document.getElementById('html-video-id'));
+
+    myEvp.pause();
+    myEvp.currentTime(10);
+    myEvp.play();
+    ```
+
+# Using it as UMD module within ```<script>``` tag
     ```
     <head>
         ...
@@ -34,19 +45,6 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
         </script>
         ...
     </body>
-    ```
-
-# Using it as CommonJS module
-    ```
-    import { newPlayer } from '@epiclabs/epic-video-player';
-    
-    ...
-
-    let myPlayer = newPlayer('some-video-url', document.getElementById('html-video-id'));
-
-    myEvp.pause();
-    myEvp.currentTime(10);
-    myEvp.play();
     ```
 
 # Development
