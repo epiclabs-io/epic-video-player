@@ -99,10 +99,10 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
   
 ## Object interfaces
 
-| Name              | Properties                                                                                                                                                        |
-|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| IStatsTimeRanges  | start: number;<br>end: number;                                                                                                                                    |
-| IStats            | buffered: IStatsTimeRanges[];<br>duration: number;<br>droppedFrames: number;<br>loadTime: number;<br>played: IStatsTimeRanges[];<br>seekable: IStatsTimeRanges[]; |
-| IRendition        | audioCodec?: string;<br>bitrate: number;<br>height: number;<br>level?: number;<br>name?: string;<br>videoCodec?: string;<br>width: number;                        |
-| IPlayerConfig     | initialRenditionKbps?: number;<br>initialRenditionIndex?: number; |
+| Name | Properties |
+| ---- | ---------- |
+| IStatsTimeRanges | start: number;<br>end: number; |
+| IStats | buffered: IStatsTimeRanges[];<br>duration: number;<br>droppedFrames: number;<br>loadTime: number;<br>played: IStatsTimeRanges[];<br>seekable: IStatsTimeRanges[]; |
+| IRendition | audioCodec?: string;<br>bitrate: number;<br>height: number;<br>level?: number;<br>name?: string;<br>videoCodec?: string;<br>width: number; |
+| IPlayerConfig | initialRenditionKbps?: number;<br>initialRenditionIndex?: number; |
 

@@ -1,4 +1,6 @@
-import { IRendition, Player, PlayerType, IPlayerConfig } from './Player';
+import { Player } from './Player';
+import { IPlayerConfig, PlayerType, IRendition } from './models';
+
 const dashjs = require('dashjs');
 
 export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
@@ -33,9 +35,7 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
         this.player.reset();
       }
       this.playerType = undefined;
-    } catch (e) {
-      console.warn(e);
-    }
+    } catch (e) { }
   }
 
   getRenditions(): IRendition[] {
@@ -92,25 +92,31 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
   }
 
   private convertBitratesToIRenditions(bitrates: dashjs.BitrateInfo[]): IRendition[] {
-    const videoInfo = this.player.getCurrentTrackFor('video');
-    const audioInfo = this.player.getCurrentTrackFor('audio');
     if (bitrates === undefined || bitrates.length === 0) { return; }
+    let videoInfo;
+    let audioInfo;
+    try {
+      videoInfo = this.player.getCurrentTrackFor('video');
+    } catch (e) {}
+    try {
+      audioInfo = this.player.getCurrentTrackFor('audio');
+    } catch (e) {}
     return bitrates.map((b: dashjs.BitrateInfo) => {
       return {
         bitrate: b.bitrate !== undefined ? b.bitrate : undefined,
         height: b.height !== undefined ? b.height : undefined,
         level: b.qualityIndex !== undefined ? b.qualityIndex : undefined,
         width: b.width !== undefined ? b.width : undefined,
-        videoCodec: videoInfo && videoInfo.codec ? this.getCodecName(videoInfo.codec) : undefined,
-        audioCodec: audioInfo && audioInfo.codec ? this.getCodecName(audioInfo.codec) : undefined,
+        videoCodec: videoInfo && videoInfo.codec ? PlayerDash.getCodecName(videoInfo.codec) : undefined,
+        audioCodec: audioInfo && audioInfo.codec ? PlayerDash.getCodecName(audioInfo.codec) : undefined,
       };
     });
   }
 
-  private getCodecName(codec: string): string {
+  static getCodecName(codec: string): string {
     const re = /"(.*?)"/g;
     const codecName = re.exec(codec);
-    if (codecName !== undefined && !!codecName[1]) {
+    if (codecName && codecName.length > 0 && !!codecName[1]) {
       return codecName[1];
     }
     return;

@@ -1,43 +1,5 @@
 import * as Utils from './Utils';
-import { MediaPlayerClass } from 'dashjs';
-import { PlayerHls } from './PlayerHls';
-import { PlayerDash } from './PlayerDash';
-
-export enum PlayerType {
-  DASH,
-  HLS,
-}
-
-export interface ITimeRanges {
-  start: number;
-  end: number;
-}
-
-export interface IStats {
-  buffered: ITimeRanges[];
-  duration: number;
-  droppedFrames: number;
-  loadTime: number;
-  played: ITimeRanges[];
-  seekable: ITimeRanges[];
-}
-
-export interface IRendition {
-  audioCodec?: string;
-  bitrate: number;
-  height: number;
-  level?: number;
-  name?: string;
-  videoCodec?: string;
-  width: number;
-}
-
-export interface IPlayerConfig {
-  initialRenditionKbps?: number;
-  initialRenditionIndex?: number;
-}
-
-export type PlayerClassType = MediaPlayerClass | Hls;
+import { PlayerType, IStats, IRendition, IPlayerConfig } from './models';
 
 export abstract class Player<T> {
   public player: T;

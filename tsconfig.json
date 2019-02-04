@@ -2,10 +2,10 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "lib": ["es2015", "dom"],
-    "declaration": false,
+    "lib": ["es2017", "dom"],
+    "declaration": true,
     "sourceMap": false,
-    "outDir": "lib",
+    "outDir": "dist",
     "importHelpers": true,
     "strict": true,
     "noImplicitAny": false,
@@ -13,11 +13,11 @@
     "baseUrl": "./",
     "typeRoots": ["node_modules/@types"],
     "esModuleInterop": true,
-    "experimentalDecorators": false
+    "experimentalDecorators": false,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules",
-    "lib",
     "dist",
     "**/*.spec.ts"
   ]

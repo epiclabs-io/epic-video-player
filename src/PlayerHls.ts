@@ -1,5 +1,6 @@
-import { IRendition, Player, PlayerType, IPlayerConfig } from './Player';
 import Hls from 'hls.js';
+import { Player } from './Player';
+import { IPlayerConfig, PlayerType, IRendition } from './models';
 
 export class PlayerHls extends Player<Hls> {
   constructor(url: string, htmlPlayer: HTMLVideoElement, config: IPlayerConfig) {

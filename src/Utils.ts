@@ -1,4 +1,4 @@
-import { ITimeRanges } from './Player';
+import { ITimeRanges } from './models';
 
 export function getDroppedFrames(htmlVideo: HTMLVideoElement): number {
   if (!htmlVideo) { return; }
@@ -35,8 +35,10 @@ export function getPlayed(htmlVideo: HTMLVideoElement): TimeRanges {
 
 export function timeRangesToITimeRanges(tr: TimeRanges): ITimeRanges[] {
   const res: ITimeRanges[] = [];
-  for (let i = 0; i < tr.length; i++) {
-    res.push({start: tr.start(i), end: tr.end(i)});
+  if (tr && tr.length > 0) {
+    for (let i = 0; i < tr.length; i++) {
+      res.push({start: tr.start(i), end: tr.end(i)});
+    }
   }
   return res;
 }
