@@ -16,6 +16,38 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
     super(url, htmlPlayer, config);
   }
 
+  public load(): void {
+    this.reset();
+    try {
+      this.player = dashjs.MediaPlayer().create();
+      this.player.getDebug().setLogToBrowserConsole(false);
+      this.player.initialize(this.htmlPlayer, this.url, false);
+
+      // an initial rendition needs to be loaded
+      if (this.config && typeof this.config.initialRenditionKbps === 'number') {
+        this.player.setAutoSwitchQualityFor('video', false);
+        this.player.enableLastBitrateCaching(false);
+        this.player.setInitialBitrateFor('video', this.config.initialRenditionKbps);
+      }
+
+      this.initListeners();
+      this.playerType = PlayerType.DASH;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  public destroy(): void {
+    try {
+      if (this.player !== undefined) {
+        this.player.reset();
+      }
+      this.playerType = undefined;
+    } catch (e) {
+      // nothing to do
+    }
+  }
+
   public getRenditions(): IRendition[] {
     if (this.player === undefined) {
       return;
@@ -67,38 +99,6 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
       }
     }
     return;
-  }
-
-  protected load(): void {
-    this.reset();
-    try {
-      this.player = dashjs.MediaPlayer().create();
-      this.player.getDebug().setLogToBrowserConsole(false);
-      this.player.initialize(this.htmlPlayer, this.url, false);
-
-      // an initial rendition needs to be loaded
-      if (this.config && typeof this.config.initialRenditionKbps === 'number') {
-        this.player.setAutoSwitchQualityFor('video', false);
-        this.player.enableLastBitrateCaching(false);
-        this.player.setInitialBitrateFor('video', this.config.initialRenditionKbps);
-      }
-
-      this.initListeners();
-      this.playerType = PlayerType.DASH;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  protected destroy(): void {
-    try {
-      if (this.player !== undefined) {
-        this.player.reset();
-      }
-      this.playerType = undefined;
-    } catch (e) {
-      // nothing to do
-    }
   }
 
   private convertBitratesToIRenditions(bitrates: dashjs.BitrateInfo[]): IRendition[] {

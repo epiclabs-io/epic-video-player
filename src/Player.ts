@@ -13,6 +13,10 @@ export abstract class Player<T> {
     this.initListeners();
   }
 
+  public abstract load(): void;
+
+  public abstract destroy(): void;
+
   public abstract getRenditions(): IRendition[];
 
   public abstract setRendition(rendition: IRendition | number, immediately: boolean): void;
@@ -54,10 +58,6 @@ export abstract class Player<T> {
       return this.htmlPlayer.playbackRate;
     }
   }
-
-  protected abstract load(): void;
-
-  protected abstract destroy(): void;
 
   protected reset(): void {
     this.destroyListeners();

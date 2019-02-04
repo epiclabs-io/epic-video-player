@@ -22,6 +22,46 @@ export class PlayerHls extends Player<Hls> {
     super(url, htmlPlayer, config);
   }
 
+  public load(): void {
+    this.reset();
+    try {
+      if (Hls.isSupported()) {
+        this.player = new Hls();
+        this.player.loadSource(this.url);
+        this.player.attachMedia(this.htmlPlayer);
+
+        // an initial rendition needs to be loaded
+        if (this.config && typeof this.config.initialRenditionIndex === 'number')  {
+          this.player.startLevel = this.config.initialRenditionIndex;
+        }
+
+      // hls is not supported but the native player is able to load the video
+      // some features (like renditions getter/setter) will NOT be available
+      } else if (this.htmlPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+        this.player = undefined;
+        this.htmlPlayer.src = this.url;
+      }
+
+      this.initListeners();
+      this.playerType = PlayerType.HLS;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  public destroy(): void {
+    try {
+      this.htmlPlayer.src = '';
+      if (this.player !== undefined) {
+        this.player.destroy();
+      }
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      this.playerType = undefined;
+    }
+  }
+
   public getRenditions(): IRendition[] {
     if (this.player === undefined) {
       return;
@@ -68,45 +108,5 @@ export class PlayerHls extends Player<Hls> {
       }
     }
     return;
-  }
-
-  protected load(): void {
-    this.reset();
-    try {
-      if (Hls.isSupported()) {
-        this.player = new Hls();
-        this.player.loadSource(this.url);
-        this.player.attachMedia(this.htmlPlayer);
-
-        // an initial rendition needs to be loaded
-        if (this.config && typeof this.config.initialRenditionIndex === 'number')  {
-          this.player.startLevel = this.config.initialRenditionIndex;
-        }
-
-      // hls is not supported but the native player is able to load the video
-      // some features (like renditions getter/setter) will NOT be available
-      } else if (this.htmlPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-        this.player = undefined;
-        this.htmlPlayer.src = this.url;
-      }
-
-      this.initListeners();
-      this.playerType = PlayerType.HLS;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  protected destroy(): void {
-    try {
-      this.htmlPlayer.src = '';
-      if (this.player !== undefined) {
-        this.player.destroy();
-      }
-    } catch (e) {
-      console.warn(e);
-    } finally {
-      this.playerType = undefined;
-    }
   }
 }
