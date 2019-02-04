@@ -4,8 +4,6 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
 
 *NB*: This library is in progress and it still lacks a lot of features that are needed to work with video in the real world. You are more than welcome to contribute or ask for features.
 
-*NB2*: This is a first working version but unfortunately the **typescript definitions are not available at this point**.
-
 # Installation
 
 1. Install the dependency into your project
@@ -13,24 +11,40 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
     $ npm install epic-video-player
     ```
 
-2. Import it:
+# Using it as CommonJS module
     ```
-    import * as evp from 'epic-video-player';
-    ```
+    import { newPlayer } from '@epiclabs/epic-video-player';
+    
+    ...
 
-3. Make use of it:
-    ```
-    let myPlayer = evp.newPlayer('some-video-url', document.getElementById('html-video-id'));
+    let myPlayer = newPlayer('some-video-url', document.getElementById('html-video-id'));
 
     myEvp.pause();
     myEvp.currentTime(10);
     myEvp.play();
     ```
 
-4. The HTML ```<video>``` element has been also exposed, so you can operate directly against it:
+# Using it as UMD module within ```<script>``` tag
     ```
-    myPlayer.htmlPlayer.play();
-    
+    <head>
+        ...
+        <script src="bundle/index.min.js"></script>
+        ...
+    </head>
+    <body>
+        ...
+        <video id="my-video" style="width: 100%;" autoplay controls muted></video>
+        ...
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', () => {
+                var myEvp = evp.newPlayer('https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd', document.getElementById('my-video'));
+                myEvp.htmlPlayer.oncanplay = () => {
+                    myEvp.currentTime(14);
+                };
+            });
+        </script>
+        ...
+    </body>
     ```
 
 # Development
@@ -99,10 +113,10 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
   
 ## Object interfaces
 
-| Name              | Properties                                                                                                                                                        |
-|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| IStatsTimeRanges  | start: number;<br>end: number;                                                                                                                                    |
-| IStats            | buffered: IStatsTimeRanges[];<br>duration: number;<br>droppedFrames: number;<br>loadTime: number;<br>played: IStatsTimeRanges[];<br>seekable: IStatsTimeRanges[]; |
-| IRendition        | audioCodec?: string;<br>bitrate: number;<br>height: number;<br>level?: number;<br>name?: string;<br>videoCodec?: string;<br>width: number;                        |
-| IPlayerConfig     | initialRenditionKbps?: number;<br>initialRenditionIndex?: number; |
+| Name | Properties |
+| ---- | ---------- |
+| IStatsTimeRanges | start: number;<br>end: number; |
+| IStats | buffered: IStatsTimeRanges[];<br>duration: number;<br>droppedFrames: number;<br>loadTime: number;<br>played: IStatsTimeRanges[];<br>seekable: IStatsTimeRanges[]; |
+| IRendition | audioCodec?: string;<br>bitrate: number;<br>height: number;<br>level?: number;<br>name?: string;<br>videoCodec?: string;<br>width: number; |
+| IPlayerConfig | initialRenditionKbps?: number;<br>initialRenditionIndex?: number; |
 

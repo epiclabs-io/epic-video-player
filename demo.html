@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>epic-video-player demo</title>
-    <script src="../dist/index.min.js"></script>
+    <script src="bundle/index.min.js"></script>
 </head>
 <body>
     <video id="my-video" style="width: 100%;" autoplay controls muted></video>
@@ -13,7 +13,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.myEvp = evp.newPlayer('https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd', document.getElementById('my-video'));
             myEvp.htmlPlayer.oncanplay = () => {
-                console.log('can play!');
                 myEvp.htmlPlayer.oncanplay = undefined;
                 myEvp.currentTime(14);
             };

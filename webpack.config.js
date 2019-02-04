@@ -3,7 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const PATHS = {
   entryPoint: path.resolve(__dirname, './src/index.ts'),
-  bundle: path.resolve(__dirname, './dist')
+  bundle: path.resolve(__dirname, './dist/bundle')
 };
 
 const dev = {
@@ -26,10 +26,10 @@ const dev = {
         parallel: true,
         uglifyOptions: {
           compress: false,
-          ecma: 6,
+          ecma: 5,
           mangle: false
         },
-        sourceMap: true
+        sourceMap: false
       })
     ]
   },
@@ -67,7 +67,7 @@ const prod = {
         parallel: true,
         uglifyOptions: {
           compress: true,
-          ecma: 6,
+          ecma: 5,
           mangle: true
         },
         sourceMap: false
@@ -88,4 +88,4 @@ const prod = {
   }
 };
 
-module.exports = [dev, prod];
+module.exports = prod;

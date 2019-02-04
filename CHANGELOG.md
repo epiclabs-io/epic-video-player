@@ -7,6 +7,11 @@ This document will track the changes of this project, based on [Keep a Changelog
 - Add MP4 and WEBM compatibility.
 - Add Youtube compatibility.
 
+## [0.0.4] - 2019-02-04
+### [Added]
+- Testing with [Jest](https://jestjs.io/).
+- Linting with [TSLint](https://palantir.github.io/tslint/).
+
 ## [0.0.3] - 2019-01-30
 ### [Fixed]
 - Npm publish process was failing due to wrong package.json definition.

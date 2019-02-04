@@ -1,6 +1,11 @@
-import { PlayerHls } from './PlayerHls';
+import { IPlayerConfig } from './models';
 import { PlayerDash } from './PlayerDash';
-import { IPlayerConfig } from './Player';
+import { PlayerHls } from './PlayerHls';
+
+export * from './models';
+export * from './Player';
+export * from './PlayerHls';
+export * from './PlayerDash';
 
 export function newPlayer(url: string, htmlVideo: HTMLVideoElement, config?: IPlayerConfig) {
   const filename = url.substr(url.lastIndexOf('/') + 1);
@@ -12,7 +17,3 @@ export function newPlayer(url: string, htmlVideo: HTMLVideoElement, config?: IPl
     return new PlayerDash(url, htmlVideo, config);
   }
 }
-
-export * from './Player';
-export * from './PlayerHls';
-export * from './PlayerDash';

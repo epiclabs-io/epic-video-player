@@ -1,12 +1,28 @@
-import { IRendition, Player, PlayerType, IPlayerConfig } from './Player';
 import Hls from 'hls.js';
+import { IPlayerConfig, IRendition, PlayerType } from './models';
+import { Player } from './Player';
 
 export class PlayerHls extends Player<Hls> {
+  private static convertLevelsToIRenditions(levels: Hls.Level[]): IRendition[] {
+    if (levels === undefined || levels.length === 0) { return; }
+    return levels.map((l: Hls.Level) => {
+      return {
+        audioCodec: l.audioCodec !== undefined ? l.audioCodec : undefined,
+        bitrate: l.bitrate !== undefined ? l.bitrate : undefined,
+        height: l.height !== undefined ? l.height : undefined,
+        level: l.level !== undefined ? l.level : undefined,
+        name: l.name !== undefined ? l.name : undefined,
+        videoCodec: l.videoCodec !== undefined ? l.videoCodec : undefined,
+        width: l.width !== undefined ? l.width : undefined,
+      };
+    });
+  }
+
   constructor(url: string, htmlPlayer: HTMLVideoElement, config: IPlayerConfig) {
     super(url, htmlPlayer, config);
   }
 
-  load(): void {
+  public load(): void {
     this.reset();
     try {
       if (Hls.isSupported()) {
@@ -33,7 +49,7 @@ export class PlayerHls extends Player<Hls> {
     }
   }
 
-  destroy(): void {
+  public destroy(): void {
     try {
       this.htmlPlayer.src = '';
       if (this.player !== undefined) {
@@ -46,15 +62,15 @@ export class PlayerHls extends Player<Hls> {
     }
   }
 
-  getRenditions(): IRendition[] {
+  public getRenditions(): IRendition[] {
     if (this.player === undefined) {
       return;
     }
 
-    return this.convertLevelsToIRenditions(this.player.levels);
+    return PlayerHls.convertLevelsToIRenditions(this.player.levels);
   }
 
-  setRendition(rendition: IRendition | number, immediately: boolean): void {
+  public setRendition(rendition: IRendition | number, immediately: boolean): void {
     if (this.player === undefined) {
       return;
     }
@@ -79,7 +95,7 @@ export class PlayerHls extends Player<Hls> {
     return this.setRendition(-1,  immediately);
   }
 
-  getCurrentRendition(): IRendition {
+  public getCurrentRendition(): IRendition {
     if (this.player === undefined) {
       return;
     }
@@ -92,20 +108,5 @@ export class PlayerHls extends Player<Hls> {
       }
     }
     return;
-  }
-
-  private convertLevelsToIRenditions(levels: Hls.Level[]): IRendition[] {
-    if (levels === undefined || levels.length === 0) { return; }
-    return levels.map((l: Hls.Level) => {
-      return {
-        audioCodec: l.audioCodec !== undefined ? l.audioCodec : undefined,
-        bitrate: l.bitrate !== undefined ? l.bitrate : undefined,
-        height: l.height !== undefined ? l.height : undefined,
-        level: l.level !== undefined ? l.level : undefined,
-        name: l.name !== undefined ? l.name : undefined,
-        videoCodec: l.videoCodec !== undefined ? l.videoCodec : undefined,
-        width: l.width !== undefined ? l.width : undefined,
-      };
-    });
   }
 }
