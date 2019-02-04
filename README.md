@@ -6,7 +6,7 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
 
 # Installation
 
-1. Install the dependency into your project
+Install the dependency into your project
     ```
     $ npm install epic-video-player
     ```
@@ -19,9 +19,9 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
 
     let myPlayer = newPlayer('some-video-url', document.getElementById('html-video-id'));
 
-    myEvp.pause();
-    myEvp.currentTime(10);
-    myEvp.play();
+    myPlayer.pause();
+    myPlayer.currentTime(10);
+    myPlayer.play();
     ```
 
 # Using it as UMD module within ```<script>``` tag
