@@ -57,6 +57,13 @@ Install the dependency into your project
 
 # API
 
+## Properties
+
+- **htmlPlayer: HTMLVideoElement**
+
+  Contains the video HTML element.
+
+
 ## Methods
 
 - **newPlayer(url: string, htmlPlayer: HtmlVideoElement, config?: IPlayerConfig)**

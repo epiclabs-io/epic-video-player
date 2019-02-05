@@ -7,13 +7,13 @@ This document will track the changes of this project, based on [Keep a Changelog
 - Add MP4 and WEBM compatibility.
 - Add Youtube compatibility.
 
-## [Unpublished]
-## [Changed]
-- README update
+## [0.0.6] - 2019-02-05
+### [Changed]
+- Exposing ```htmlPlayer``` property.
 
 ## [0.0.5] - 2019-02-04
 ### [Changed]
-- README update
+- Updating the README.
 
 ## [0.0.4] - 2019-02-04
 ### [Added]
