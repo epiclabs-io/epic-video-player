@@ -1,6 +1,6 @@
 {
   "name": "@epiclabs/epic-video-player",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Video player wrapper to support different video sources with unified interface",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -48,7 +48,7 @@
     "jest": "23.6.0",
     "npm-run-all": "4.1.5",
     "rimraf": "2.6.3",
-    "ts-jest": "^23.10.5",
+    "ts-jest": "23.10.5",
     "ts-loader": "5.3.3",
     "tslib": "1.9.3",
     "tslint": "5.12.1",
