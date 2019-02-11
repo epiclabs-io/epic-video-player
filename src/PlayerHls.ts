@@ -32,7 +32,11 @@ export class PlayerHls extends Player<Hls> {
 
         // an initial rendition needs to be loaded
         if (this.config && typeof this.config.initialRenditionIndex === 'number')  {
-          this.player.startLevel = this.config.initialRenditionIndex;
+          if (this.config.initialRenditionIndex >= 0) {
+            this.player.startLevel = this.config.initialRenditionIndex;
+          } else {
+            this.player.autoLevelEnabled(true);
+          }
         }
 
       // hls is not supported but the native player is able to load the video
