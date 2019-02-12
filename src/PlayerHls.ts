@@ -33,9 +33,17 @@ export class PlayerHls extends Player<Hls> {
         // an initial rendition needs to be loaded
         if (this.config && typeof this.config.initialRenditionIndex === 'number')  {
           if (this.config.initialRenditionIndex >= 0) {
-            this.player.startLevel = this.config.initialRenditionIndex;
+            const setInitialRendition = (event, data) => {
+              if (this.config.initialRenditionIndex > data.levels.length - 1) {
+                this.player.loadLevel = data.levels.length - 1;
+              } else {
+                this.player.loadLevel = this.config.initialRenditionIndex;
+              }
+              this.player.off(Hls.Events.MANIFEST_PARSED, () => setInitialRendition);
+            };
+            this.player.on(Hls.Events.MANIFEST_PARSED, (event, data) => setInitialRendition(event, data));
           } else {
-            this.player.autoLevelEnabled(true);
+            this.player.loadLevel = -1;
           }
         }
 

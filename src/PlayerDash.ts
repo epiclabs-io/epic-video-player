@@ -31,6 +31,7 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
           this.player.setInitialBitrateFor('video', this.config.initialRenditionKbps);
         } else {
           this.player.setAutoSwitchQualityFor('video', true);
+          this.player.enableLastBitrateCaching(false);
         }
       }
 
