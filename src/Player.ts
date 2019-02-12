@@ -7,7 +7,7 @@ export abstract class Player<T> {
   private stats: IStats;
   private loadStartTime: number;
 
-  constructor(protected url: string, public htmlPlayer: HTMLVideoElement, protected config: IPlayerConfig) {
+  constructor(protected url: string, public htmlPlayer: HTMLVideoElement, public config: IPlayerConfig) {
     this.resetStats();
     this.load();
     this.initListeners();
