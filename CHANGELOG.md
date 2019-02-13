@@ -7,6 +7,10 @@ This document will track the changes of this project, based on [Keep a Changelog
 - Add MP4 and WEBM compatibility.
 - Add Youtube compatibility.
 
+## [0.0.9] - 2019-02-13
+### [Changed]
+- Upgrading to dashjs 2.9.3.
+
 ## [0.0.8] - 2019-02-12
 ### [Fixed]
 - Fixed load initial rendition for Hls.js.
