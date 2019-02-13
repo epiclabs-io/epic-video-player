@@ -1,6 +1,6 @@
 {
   "name": "@epiclabs/epic-video-player",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Video player wrapper to support different video sources with unified interface",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/epiclabs-io/epic-video-player#readme",
   "dependencies": {
-    "dashjs": "2.9.2",
+    "dashjs": "2.9.3",
     "hls.js": "0.12.2",
     "stream": "0.0.2"
   },
