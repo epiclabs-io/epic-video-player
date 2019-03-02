@@ -9,7 +9,7 @@ const config = {
 };
 
 test('load', () => {
-    let evpInstance = new pHls.PlayerHls(url, videoElement, undefined);
+    const evpInstance = new pHls.PlayerHls(url, videoElement, undefined);
     evpInstance.load();
     expect(evpInstance.playerType === 1).toBeTruthy();
 });
@@ -21,7 +21,7 @@ test('getRenditions', () => {
 });
 
 test('getCurrentRendition', () => {
-    let evpInstance = new pHls.PlayerHls(url, videoElement, undefined);
+    const evpInstance = new pHls.PlayerHls(url, videoElement, undefined);
     evpInstance.player = undefined;
     expect(evpInstance.getCurrentRendition()).toBeUndefined();
 
@@ -53,7 +53,7 @@ test('setRendition', () => {
     expect(evpInstance.setRendition(-1, true)).toBeUndefined();
 
     evpInstance = new pHls.PlayerHls(url, videoElement, undefined);
-    evpInstance.getRenditions = () => []; 
+    evpInstance.getRenditions = () => [];
     expect(evpInstance.setRendition(-1, true)).toBeUndefined();
 });
 

@@ -4,6 +4,7 @@ import Hls from 'hls.js';
 export enum PlayerType {
     DASH,
     HLS,
+    NATIVE,
 }
 
 export interface ITimeRanges {
@@ -33,6 +34,7 @@ export interface IRendition {
 export interface IPlayerConfig {
     initialRenditionKbps?: number;
     initialRenditionIndex?: number;
+    type: string;
 }
 
 export type PlayerClassType = MediaPlayerClass | Hls;
