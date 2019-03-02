@@ -1,5 +1,7 @@
+export {};
+
 const evp = require('../src/index');
-const pDash = require('../src/PlayerDash');
+const pDash = require('../src/player-dash');
 const models = require('../src/models');
 
 const url = 'http://fake-url/video.mpd';
@@ -9,7 +11,7 @@ const config = {
 };
 
 test('load', () => {
-    let evpInstance = new pDash.PlayerDash(url, videoElement, undefined);
+    const evpInstance = new pDash.PlayerDash(url, videoElement, undefined);
     evpInstance.load();
     expect(evpInstance.playerType === 0).toBeTruthy();
 });
@@ -56,13 +58,13 @@ test('setRendition', () => {
     expect(evpInstance.setRendition()).toBeUndefined();
 
     evpInstance = new pDash.PlayerDash(url, videoElement, undefined);
-    evpInstance.player.setAutoSwitchQualityFor = () => undefined; 
+    evpInstance.player.setAutoSwitchQualityFor = () => undefined;
     expect(evpInstance.setRendition(-1, true)).toBeUndefined();
 
     evpInstance = new pDash.PlayerDash(url, videoElement, undefined);
-    evpInstance.player.setAutoSwitchQualityFor = () => undefined; 
-    evpInstance.player.enableLastBitrateCaching = () => undefined; 
-    evpInstance.player.setQualityFor = () => undefined; 
+    evpInstance.player.setAutoSwitchQualityFor = () => undefined;
+    evpInstance.player.enableLastBitrateCaching = () => undefined;
+    evpInstance.player.setQualityFor = () => undefined;
     expect(evpInstance.setRendition(1, true)).toBeUndefined();
     expect(evpInstance.setRendition(1, false)).toBeUndefined();
 

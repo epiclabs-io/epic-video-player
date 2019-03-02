@@ -1,6 +1,6 @@
 import Hls from 'hls.js';
 import { IPlayerConfig, IRendition, PlayerType } from './models';
-import { Player } from './Player';
+import { Player } from './player';
 
 export class PlayerHls extends Player<Hls> {
   private static convertLevelsToIRenditions(levels: Hls.Level[]): IRendition[] {
