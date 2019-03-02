@@ -1,4 +1,4 @@
-# Epic Video Player · ![Travis CI Status](https://api.travis-ci.org/epiclabs-io/epic-video-player.svg?branch=dev)
+# Epic Video Player · ![Travis CI Status](https://api.travis-ci.org/epiclabs-io/epic-video-player.svg?branch=master)
 
 JS library to wrap different video libraries (at the moment, [dashjs](https://github.com/Dash-Industry-Forum/dash.js) and [hls.js](https://github.com/video-dev/hls.js)).
 
