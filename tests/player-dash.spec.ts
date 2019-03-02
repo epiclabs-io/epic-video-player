@@ -1,5 +1,7 @@
+export {};
+
 const evp = require('../src/index');
-const pDash = require('../src/PlayerDash');
+const pDash = require('../src/player-dash');
 const models = require('../src/models');
 
 const url = 'http://fake-url/video.mpd';

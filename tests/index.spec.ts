@@ -1,7 +1,9 @@
+export {};
+
 const evp = require('../src/index');
-const pDash = require('../src/PlayerDash');
-const pHls = require('../src/PlayerHls');
-const pNative = require('../src/PlayerNative');
+const pDash = require('../src/player-dash');
+const pHls = require('../src/player-hls');
+const pNative = require('../src/player-native');
 
 const url = 'http://fake-url';
 const videoElement = document.createElement('video');

@@ -4,8 +4,11 @@ This document will track the changes of this project, based on [Keep a Changelog
 
 ## Wanted features / Roadmap
 - Expose player options and events from dashjs and hls.js.
-- Add MP4 and WEBM compatibility.
 - Add Youtube compatibility.
+
+## [0.0.10] - 2019-03-02
+### [Added]
+- Support for native HTML player compatible formats.
 
 ## [0.0.9] - 2019-02-13
 ### [Changed]

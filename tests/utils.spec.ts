@@ -1,4 +1,6 @@
-const utils = require('../src/Utils');
+export {};
+
+const utils = require('../src/utils');
 
 const videoElement = document.createElement('video');
 

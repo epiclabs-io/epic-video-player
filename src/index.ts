@@ -1,12 +1,12 @@
 import { IPlayerConfig } from './models';
-import { PlayerDash } from './PlayerDash';
-import { PlayerHls } from './PlayerHls';
-import { PlayerNative } from './PlayerNative';
+import { PlayerDash } from './player-dash';
+import { PlayerHls } from './player-hls';
+import { PlayerNative } from './player-native';
 
 export * from './models';
-export * from './Player';
-export * from './PlayerHls';
-export * from './PlayerDash';
+export * from './player';
+export * from './player-hls';
+export * from './player-dash';
 
 export function newPlayer(url: string, htmlVideo: HTMLVideoElement, config?: IPlayerConfig) {
   if (config && config.type) {

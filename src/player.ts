@@ -1,5 +1,5 @@
 import { IPlayerConfig, IRendition, IStats, PlayerType } from './models';
-import * as Utils from './Utils';
+import * as Utils from './utils';
 
 export abstract class Player<T> {
   public player: T;

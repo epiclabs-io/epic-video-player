@@ -1,6 +1,6 @@
 import * as dashjs from 'dashjs';
 import { IPlayerConfig, IRendition, PlayerType } from './models';
-import { Player } from './Player';
+import { Player } from './player';
 
 export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
   private static getCodecName(codec: string): string {

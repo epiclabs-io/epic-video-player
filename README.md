@@ -1,4 +1,4 @@
-# epic-video-player
+# Epic Video Player · ![Travis CI Status](https://api.travis-ci.org/epiclabs-io/epic-video-player.svg?branch=dev)
 
 JS library to wrap different video libraries (at the moment, [dashjs](https://github.com/Dash-Industry-Forum/dash.js) and [hls.js](https://github.com/video-dev/hls.js)).
 
@@ -8,7 +8,7 @@ JS library to wrap different video libraries (at the moment, [dashjs](https://gi
 
 Install the dependency into your project
     ```
-    $ npm install epic-video-player
+    $ npm install epic-video-player --save
     ```
 
 # Using it as CommonJS module
@@ -125,5 +125,7 @@ Install the dependency into your project
 | IStatsTimeRanges | start: number;<br>end: number; |
 | IStats | buffered: IStatsTimeRanges[];<br>duration: number;<br>droppedFrames: number;<br>loadTime: number;<br>played: IStatsTimeRanges[];<br>seekable: IStatsTimeRanges[]; |
 | IRendition | audioCodec?: string;<br>bitrate: number;<br>height: number;<br>level?: number;<br>name?: string;<br>videoCodec?: string;<br>width: number; |
-| IPlayerConfig | initialRenditionKbps?: number;<br>initialRenditionIndex?: number; |
+| IPlayerConfig | initialRenditionKbps?: number;<br>initialRenditionIndex?: number;<br>type?: string; |
+
+*Type examples: 'application/dash+xml', 'application/x-mpegURL', ...* 
 

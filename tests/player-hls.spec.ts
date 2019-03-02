@@ -1,5 +1,7 @@
+export {};
+
 const evp = require('../src/index');
-const pHls = require('../src/PlayerHls');
+const pHls = require('../src/player-hls');
 const models = require('../src/models');
 
 const url = 'http://fake-url/video.mpd';

@@ -1,5 +1,5 @@
 import { IPlayerConfig, IRendition, PlayerType } from './models';
-import { Player } from './Player';
+import { Player } from './player';
 
 export class PlayerNative extends Player<HTMLVideoElement> {
 

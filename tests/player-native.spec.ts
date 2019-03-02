@@ -1,5 +1,7 @@
+export {};
+
 const evp = require('../src/index');
-const pNative = require('../src/PlayerNative');
+const pNative = require('../src/player-native');
 const models = require('../src/models');
 
 const url = 'http://fake-url/video.mp4';
