@@ -6,6 +6,10 @@ This document will track the changes of this project, based on [Keep a Changelog
 - Expose player options and events from dashjs and hls.js.
 - Add Youtube compatibility.
 
+## [0.0.11] - 2019-03-04
+### [Fixed]
+- Minnor fix to properly manage native HTML player.
+
 ## [0.0.10] - 2019-03-02
 ### [Added]
 - Support for native HTML player compatible formats.
