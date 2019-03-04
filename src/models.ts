@@ -34,7 +34,7 @@ export interface IRendition {
 export interface IPlayerConfig {
     initialRenditionKbps?: number;
     initialRenditionIndex?: number;
-    type: string;
+    type?: string;
 }
 
-export type PlayerClassType = MediaPlayerClass | Hls;
+export type PlayerClassType = MediaPlayerClass | Hls | HTMLVideoElement;
