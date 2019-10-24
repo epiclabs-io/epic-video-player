@@ -34,14 +34,14 @@ test('loadEnd', () => {
 
 test('pause', () => {
     const evpInstance = evp.newPlayer(url, videoElement, config);
-    window['HTMLMediaElement'].prototype.pause = () => { /* do nothing */ };
+    window['HTMLMediaElement'].prototype.pause = () => Promise.resolve();
     expect(evpInstance.pause).toBeInstanceOf(Function);
     expect(evpInstance.pause()).toBeUndefined();
 });
 
 test('play', () => {
     const evpInstance = evp.newPlayer(url, videoElement, config);
-    window['HTMLMediaElement'].prototype.play = () => { /* do nothing */ };
+    window['HTMLMediaElement'].prototype.play = () => Promise.resolve();
     expect(evpInstance.play).toBeInstanceOf(Function);
     expect(evpInstance.play()).toBeUndefined();
 });

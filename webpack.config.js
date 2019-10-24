@@ -14,7 +14,7 @@ const dev = {
   },
   output: {
     path: PATHS.bundle,
-    filename: 'index.js',
+    filename: 'index.min.js',
     libraryTarget: 'umd',
     library: 'evp',
     umdNamedDefine: true,
@@ -29,7 +29,7 @@ const dev = {
           ecma: 5,
           mangle: false
         },
-        sourceMap: false
+        sourceMap: true
       })
     ]
   },

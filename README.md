@@ -6,7 +6,7 @@ JS library to wrap different video libraries. Currently supporting native HTML v
 
 Install the dependency into your project
     
-    $ npm install epic-video-player --save
+    $ npm install @epiclabs/epic-video-player --save
 
 # Using it as CommonJS module
 

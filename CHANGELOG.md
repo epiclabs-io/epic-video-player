@@ -6,6 +6,13 @@ This document will track the changes of this project, based on [Keep a Changelog
 - Expose player options and events from dashjs and hls.js.
 - Add Youtube compatibility.
 
+## [0.0.12] - 
+### [Added]
+- Migrated to Dash 3.0.0.
+- Rendition and video source selectors in demo page.
+### [Security]
+- All npm packages upgraded to latest stable version.
+
 ## [0.0.11] - 2019-03-04
 ### [Fixed]
 - Minnor fix to properly manage native HTML player.
