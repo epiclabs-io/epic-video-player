@@ -7,12 +7,14 @@
   "scripts": {
     "_clean": "rimraf dist",
     "_transpile": "tsc",
-    "_bundle": "webpack",
-    "_npm_ready": "cp-cli CHANGELOG.md ./dist/CHANGELOG.md && cp-cli LICENSE ./dist/LICENSE && cp-cli package.json ./dist/package.json && cp-cli README.md ./dist/README.md && cp-cli index.html ./dist/index.html",
+    "_bundle": "webpack --config webpack.config.prod.js",
+    "_npm_ready": "cpy CHANGELOG.md LICENSE package.json README.md ./dist/",
     "build": "run-s _clean _bundle _transpile _npm_ready",
     "_lint": "tslint -c tslint.json 'src/**/*.ts'",
     "_utest": "jest --coverage --env=jsdom",
-    "test": "run-s _lint _utest"
+    "test": "run-s _lint _utest",
+    "start": "webpack-dev-server --config webpack.config.dev.js --host 0.0.0.0 --port 8085 --open --mode development",
+    "build-dev": "webpack --config webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
@@ -36,26 +38,29 @@
   },
   "homepage": "https://github.com/epiclabs-io/epic-video-player#readme",
   "dependencies": {
-    "dashjs": "2.9.3",
-    "hls.js": "0.12.2"
+    "dashjs": "3.0.0",
+    "hls.js": "0.12.4"
   },
   "devDependencies": {
-    "@types/hls.js": "0.12.1",
-    "@types/jest": "23.3.13",
-    "@types/node": "10.12.18",
-    "cp-cli": "1.1.2",
-    "jest": "24.1.0",
+    "@types/hls.js": "0.12.5",
+    "@types/jest": "24.0.21",
+    "@types/node": "12.12.5",
+    "cpy-cli": "2.0.0",
+    "html-webpack-plugin": "3.2.0",
+    "jest": "24.9.0",
     "npm-run-all": "4.1.5",
-    "rimraf": "2.6.3",
-    "ts-jest": "23.10.5",
-    "ts-loader": "5.3.3",
-    "tslib": "1.9.3",
-    "tslint": "5.12.1",
-    "typescript": "3.2.4",
-    "uglifyjs-webpack-plugin": "2.1.1",
+    "rimraf": "3.0.0",
+    "ts-jest": "24.1.0",
+    "ts-loader": "6.2.0",
+    "tslib": "1.10.0",
+    "tslint": "5.20.0",
+    "typescript": "3.6.4",
+    "uglifyjs-webpack-plugin": "2.2.0",
+    "url-loader": "2.0.1",
     "webpack": "4.29.0",
+    "webpack-auto-inject-version": "1.2.2",
     "webpack-cli": "3.2.1",
-    "stream": "0.0.2"
+    "webpack-dev-server": "3.9.0"
   },
   "publishConfig": {
     "access": "public"

@@ -3,7 +3,7 @@ import { IPlayerConfig, IRendition, PlayerType } from './models';
 import { Player } from './player';
 
 export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
-  private static getCodecName(codec: string): string {
+  public static getCodecName(codec: string): string {
     const re = /"(.*?)"/g;
     const codecName = re.exec(codec);
     if (codecName && codecName.length > 0 && !!codecName[1]) {
@@ -20,18 +20,46 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
     this.reset();
     try {
       this.player = dashjs.MediaPlayer().create();
-      this.player.getDebug().setLogToBrowserConsole(false);
+      (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+        debug: {
+          logLevel: 0,
+        },
+      });
       this.player.initialize(this.htmlPlayer, this.url, false);
 
       // an initial rendition needs to be loaded
       if (this.config && typeof this.config.initialRenditionKbps === 'number') {
         if (this.config.initialRenditionKbps >= 0) {
-          this.player.setAutoSwitchQualityFor('video', false);
-          this.player.enableLastBitrateCaching(false);
-          this.player.setInitialBitrateFor('video', this.config.initialRenditionKbps);
+          (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+            streaming: {
+              abr: {
+                autoSwitchBitrate: {
+                  audio: true,
+                  video: false,
+                },
+                initialBitrate: {
+                  video: this.config.initialRenditionKbps,
+                },
+              },
+              lastBitrateCachingInfo: {
+                enabled: false,
+              },
+            },
+          });
         } else {
-          this.player.setAutoSwitchQualityFor('video', true);
-          this.player.enableLastBitrateCaching(false);
+          (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+            streaming: {
+              abr: {
+                autoSwitchBitrate: {
+                  audio: true,
+                  video: true,
+                },
+              },
+              lastBitrateCachingInfo: {
+                enabled: false,
+              },
+            },
+          });
         }
       }
 
@@ -68,10 +96,30 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
 
     if (typeof rendition === 'number') {
       if (rendition === -1) {
-        this.player.setAutoSwitchQualityFor('video', true);
+        (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+          streaming: {
+            abr: {
+              autoSwitchBitrate: {
+                audio: true,
+                video: true,
+              },
+            },
+          },
+        });
       } else {
-        this.player.setAutoSwitchQualityFor('video', false);
-        this.player.enableLastBitrateCaching(false);
+        (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+          streaming: {
+            abr: {
+              autoSwitchBitrate: {
+                audio: true,
+                video: false,
+              },
+            },
+            lastBitrateCachingInfo: {
+              enabled: false,
+            },
+          },
+        });
         this.player.setQualityFor('video', rendition);
         if (immediately) {
           // dash.js does not provide this feature yet

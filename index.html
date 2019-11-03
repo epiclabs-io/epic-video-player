@@ -5,17 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>epic-video-player demo</title>
-    <script src="bundle/index.min.js"></script>
 </head>
 <body>
+    <select id="source-selector"></select><br><br>
+
     <video id="my-video" style="width: 100%;" autoplay controls muted></video>
+
+    <select id="rendition-selector"><option value="-1">Auto</option></select>
+    <button id="rendition-button">Change!</button>
+
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', () => {
-            window.myEvp = evp.newPlayer('https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd', document.getElementById('my-video'));
-            myEvp.htmlPlayer.oncanplay = () => {
-                myEvp.htmlPlayer.oncanplay = undefined;
-                myEvp.currentTime(14);
+        var sources = [{
+            src: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
+            label: 'MPEG-DASH',
+        }, {
+            src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+            label: 'HLS',
+        }, {
+            src: 'http://techslides.com/demos/sample-videos/small.mp4',
+            label: 'MP4',
+        }, {
+            src: 'http://dl5.webmfiles.org/elephants-dream.webm',
+            label: 'WebM',
+        }, {
+            src: 'https://file-examples.com/wp-content/uploads/2018/04/file_example_OGG_480_1_7mg.ogg',
+            label: 'Ogg',
+        }];
+
+        function initSourcesDemoFeatures() {
+            const select = document.getElementById('source-selector');
+            for (const source of sources) {
+                const option = document.createElement('option');
+                option.setAttribute('value', source.src);
+                option.text = source.label;
+                select.appendChild(option);
+            }
+
+            select.onchange = () => {
+                window.myEvp.destroy();
+                const selectedValue = select.options[select.selectedIndex].value;
+                window.myEvp = evp.newPlayer(selectedValue, document.getElementById('my-video'));
             };
+        }
+
+        function initRenditionsDemoFeatures() {
+            myEvp.htmlPlayer.oncanplay = () => {
+                cleanRenditionsInSelector();
+                addRenditionsToSelector(myEvp.getRenditions());
+            };
+            document.getElementById('rendition-button').addEventListener('click', () => changeRendition());
+        }
+
+        function cleanRenditionsInSelector() {
+            const select = document.getElementById('rendition-selector');
+            while (select.children[1]) {
+                select.children[1].remove();
+            }
+        }
+
+        function addRenditionsToSelector(renditions) {
+            const select = document.getElementById('rendition-selector');
+            for (const rendition of renditions) {
+                const option = document.createElement('option');
+                option.setAttribute('value', JSON.stringify(rendition));
+                option.text = rendition.width + 'x' + rendition.height + ' ' + Math.ceil(rendition.bitrate / 1000) + ' kbps';
+                select.appendChild(option);
+            }
+        }
+
+        function changeRendition() {
+            const select = document.getElementById('rendition-selector');
+            const selectedRendition = select.options[select.selectedIndex].value;
+            if (selectedRendition === '-1') {
+                myEvp.setRendition(-1, true);
+            } else {
+                myEvp.setRendition(JSON.parse(selectedRendition), true);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.myEvp = evp.newPlayer(sources[0].src, document.getElementById('my-video'));
+
+            initSourcesDemoFeatures();
+            initRenditionsDemoFeatures();
         });
     </script>
 </body>
