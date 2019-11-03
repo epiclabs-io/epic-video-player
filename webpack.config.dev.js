@@ -1,5 +1,6 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATHS = {
   entryPoint: path.resolve(__dirname, './src/index.ts'),
@@ -8,58 +9,23 @@ const PATHS = {
 
 const dev = {
   mode: 'development',
+  performance: {
+    hints: false,
+    maxEntrypointSize: 812000,
+    maxAssetSize: 812000
+  },
   target: 'web',
   entry: {
     'evp': [PATHS.entryPoint]
   },
   output: {
     path: PATHS.bundle,
-    filename: 'index.min.js',
+    filename: 'index.js',
     libraryTarget: 'umd',
     library: 'evp',
     umdNamedDefine: true,
   },
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        uglifyOptions: {
-          compress: false,
-          ecma: 5,
-          mangle: false
-        },
-        sourceMap: true
-      })
-    ]
-  },
-  resolve: {
-    extensions: ['.ts', '.js']
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
-  }
-};
-
-const prod = {
-  mode: 'production',
-  target: 'web',
-  entry: {
-    'evp': [PATHS.entryPoint]
-  },
-  output: {
-    path: PATHS.bundle,
-    filename: 'index.min.js',
-    libraryTarget: 'umd',
-    library: 'evp',
-    umdNamedDefine: true,
-  },
+  devtool: 'source-map',
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
@@ -68,10 +34,10 @@ const prod = {
         uglifyOptions: {
           compress: true,
           ecma: 5,
-          mangle: true
+          mangle: false,
         },
-        sourceMap: false
-      })
+        sourceMap: true,
+      }),
     ]
   },
   resolve: {
@@ -83,9 +49,25 @@ const prod = {
         test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/
+      },
+      {
+        loader: 'url-loader?limit=100000',
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/
+      },
+      {
+        loader: 'style-loader!css-loader',
+        test: /\.css$/
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: 'body',
+      template: './index.html',
+      filename: './index.html',
+    }),
+  ]
 };
 
-module.exports = prod;
+module.exports = dev;
+

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>epic-video-player demo</title>
-    <script src="bundle/index.min.js"></script>
 </head>
 <body>
     <select id="source-selector"></select><br><br>
@@ -35,7 +34,6 @@
 
         function initSourcesDemoFeatures() {
             const select = document.getElementById('source-selector');
-            console.log(sources);
             for (const source of sources) {
                 const option = document.createElement('option');
                 option.setAttribute('value', source.src);
@@ -70,7 +68,7 @@
             for (const rendition of renditions) {
                 const option = document.createElement('option');
                 option.setAttribute('value', JSON.stringify(rendition));
-                option.text = `${rendition.width}x${rendition.height} ${Math.ceil(rendition.bitrate / 1000)}kbps`;
+                option.text = rendition.width + 'x' + rendition.height + ' ' + Math.ceil(rendition.bitrate / 1000) + ' kbps';
                 select.appendChild(option);
             }
         }

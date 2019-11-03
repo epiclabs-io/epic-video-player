@@ -1,6 +1,17 @@
 # Epic Video Player · ![Travis CI Status](https://api.travis-ci.org/epiclabs-io/epic-video-player.svg?branch=dev)
 
-JS library to wrap different video libraries. Currently supporting native HTML video (WebM, Ogg Theora Vorbis, Ogg Opus, Ogg FLAC and MP4 H.264), MPEG-DASH([dash.js](https://github.com/Dash-Industry-Forum/dash.js)) and HLS ([hls.js](https://github.com/video-dev/hls.js)) streams.
+JS library to wrap different video libraries. Currently supporting native HTML video (WebM, Ogg Theora Vorbis, Ogg Opus, Ogg FLAC and MP4 H.264), MPEG-DASH ([dash.js](https://github.com/Dash-Industry-Forum/dash.js)) and HLS ([hls.js](https://github.com/video-dev/hls.js)) streams.
+
+This project is not intended to be used in production since the result is a heavy library (over 800 KiB minified).
+
+# ToC
+
+1. [Installation](#Installation)
+2. [Using it as CommonJS module](#Using-it-as-CommonJS-module)
+3. [Using it as UMD module within ```<script>``` tag](#Using-it-as-UMD-module-within-```<script>```-tag)
+4. [API](#API)
+5. [Development](#Development)
+6. [Contribution](#Contribution)
 
 # Installation
 
@@ -42,20 +53,13 @@ Install the dependency into your project
         ...
     </body>
 
-# Development
-
-    $ git clone https://github.com/epiclabs-io/epic-video-player.git
-    $ cd epic-video-player
-    $ npm install
-    $ npm run build
-
 # API
 
 ## Properties
 
 - **htmlPlayer: HTMLVideoElement**
 
-  Contains the video HTML element.
+  Contains the [HTMLVideoElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement).
 
 
 ## Methods
@@ -123,3 +127,28 @@ Install the dependency into your project
 
 *Type examples: 'application/dash+xml', 'application/x-mpegURL', ...* 
 
+# Development
+
+    $ git clone https://github.com/epiclabs-io/epic-video-player.git
+    $ cd epic-video-player
+    $ npm i
+
+1. For development:
+ 
+       $ npm run start
+
+2. To build unminified version with source maps:
+
+       $ npm run build-dev
+
+3. To build minified version:
+
+       $ npm run build
+
+# Contribution
+
+Everyone is welcome to collaborate to this project.
+
+Just create a new branch from dev with a meaningful name and do a Pull Request to dev.
+
+If the fix / feature is related to any open issue please provide a proper link.
