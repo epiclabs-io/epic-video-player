@@ -1,6 +1,6 @@
 {
   "name": "@epiclabs/epic-video-player",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Video player wrapper to support different video sources with unified interface",
   "main": "./index.js",
   "types": "./index.d.ts",

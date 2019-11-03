@@ -6,10 +6,11 @@ This document will track the changes of this project, based on [Keep a Changelog
 - Expose player options and events from dashjs and hls.js.
 - Add Youtube compatibility.
 
-## [0.0.12] - 
+## [0.0.12] - 2019-11-03
 ### [Added]
-- Migrated to Dash 3.0.0.
+- Migrated to dash.js 3.0.0.
 - Rendition and video source selectors in demo page.
+- Webpack configuration for better development experience.
 ### [Security]
 - All npm packages upgraded to latest stable version.
 
