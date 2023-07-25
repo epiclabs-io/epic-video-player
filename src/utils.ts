@@ -1,16 +1,10 @@
 import { ITimeRanges } from './models';
 
 export function getDroppedFrames(htmlVideo: HTMLVideoElement): number {
-  if (!htmlVideo) { return; }
-  const hasWebKit = ('webkitDroppedFrameCount' in htmlVideo) && ('webkitDecodedFrameCount' in htmlVideo);
-  const hasQuality = ('getVideoPlaybackQuality' in htmlVideo);
-
-  if (hasQuality) {
-    return (htmlVideo as any).getVideoPlaybackQuality();
-  } else if (hasWebKit) {
-    return (htmlVideo as any).webkitDroppedFrameCount;
+  if (!htmlVideo) {
+    return;
   }
-  return;
+  return htmlVideo.getVideoPlaybackQuality().droppedVideoFrames;
 }
 
 export function getDuration(htmlVideo: HTMLVideoElement): number {
