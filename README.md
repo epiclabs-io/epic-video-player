@@ -1,6 +1,6 @@
 # Epic Video Player
 
-[Live demo](https://adripanico.github.com/epic-video-player)
+[Live demo](https://adripanico.github.io/epic-video-player)
 
 JS library to wrap different video libraries. Currently supporting native HTML video (WebM, Ogg Theora Vorbis, Ogg Opus, Ogg FLAC and MP4 H.264), MPEG-DASH ([dash.js](https://github.com/Dash-Industry-Forum/dash.js)) and HLS ([hls.js](https://github.com/video-dev/hls.js)) streams.
 
