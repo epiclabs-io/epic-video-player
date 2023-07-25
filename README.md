@@ -68,6 +68,14 @@ Install the dependency into your project
 
   Creates a new instance of epic-video-player.
 
+- **load()**
+
+  Triggers internally when newPlayer is called. If called manually, it will restart the current playback.
+
+- **destroy()**
+
+  Destroys the video player instance and related internal event listeners. Take into account that this doesn't remove the HTMLVideoElement element from the DOM.
+
 - **pause()**
 
   Stops playback of the video.
