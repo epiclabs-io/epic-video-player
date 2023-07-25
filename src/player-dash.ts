@@ -24,7 +24,7 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
     this.reset();
     try {
       this.player = dashjs.MediaPlayer().create();
-      (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+      this.player.updateSettings({
         debug: {
           logLevel: 0,
         },
@@ -34,7 +34,7 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
       // an initial rendition needs to be loaded
       if (this.config && typeof this.config.initialRenditionKbps === 'number') {
         if (this.config.initialRenditionKbps >= 0) {
-          (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+          this.player.updateSettings({
             streaming: {
               abr: {
                 autoSwitchBitrate: {
@@ -51,7 +51,7 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
             },
           });
         } else {
-          (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+          this.player.updateSettings({
             streaming: {
               abr: {
                 autoSwitchBitrate: {
@@ -105,7 +105,7 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
 
     if (typeof rendition === 'number') {
       if (rendition === -1) {
-        (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+        this.player.updateSettings({
           streaming: {
             abr: {
               autoSwitchBitrate: {
@@ -116,7 +116,7 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
           },
         });
       } else {
-        (this.player as any).updateSettings({ // TODO -> remove the any as soon as dash types definitions are fixed
+        this.player.updateSettings({
           streaming: {
             abr: {
               autoSwitchBitrate: {
