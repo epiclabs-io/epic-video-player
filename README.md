@@ -61,42 +61,59 @@ Install the dependency into your project
 
   Contains the [HTMLVideoElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement).
 
+- **player: PlayerNative | PlayerDash | PlayerHls**
+
+  Contains the internal instance of the video player.
+
+  * For `PlayerNative`, it will match the `HTMLVideoElement`.
+
+  * For `PlayerDash`, it will match the `MediaPlayer` object as documented [here](http://cdn.dashjs.org/latest/jsdoc/module-MediaPlayer.html).
+
+  * For `PlayerHls`, it will match the `Hls` object as documented [here](https://github.com/video-dev/hls.js/blob/master/docs/API.md).
+
+- **playerType: 'DASH' | 'HLS' | 'NATIVE'**
+
+  The type of player currently being used.
+
+- **config: IPlayerConfig**
+
+  Returns the configuration provided when the player was created, if any.
 
 ## Methods
 
-- **newPlayer(url: string, htmlPlayer: HtmlVideoElement, config?: IPlayerConfig)**
+- **newPlayer(url: string, htmlPlayer: HtmlVideoElement, config?: IPlayerConfig): PlayerNative | PlayerDash | PlayerHls**
 
   Creates a new instance of epic-video-player.
 
-- **load()**
+- **load(): void**
 
   Triggers internally when newPlayer is called. If called manually, it will restart the current playback.
 
-- **destroy()**
+- **destroy(): void**
 
   Destroys the video player instance and related internal event listeners. Take into account that this doesn't remove the HTMLVideoElement element from the DOM.
 
-- **pause()**
+- **pause(): void**
 
   Stops playback of the video.
 
-- **play()**
+- **play(): Promise<void>**
 
   Begins playback of the video.
 
-- **currentTime(secs?: number)**
+- **currentTime(secs?: number): void | number**
 
   It can receive a double indicating the number of seconds, in which case it will seek the video to the new time.
 
   If not parameters are provided it will return the current playback time in seconds.
 
-- **volume(perc?: number)**
+- **volume(percentage?: number): void | number**
 
   It can receive a double (from 0.0 to 1.0) indicating the level of the volume, in which case it will set the volume to the new level.
 
   If not parameters are provided, it will return the current volume level.
 
-- **playbackRate(rate?: number)**
+- **playbackRate(rate?: number): void | number**
 
   It can receive a double indicating the rate at which the video will be played back (1.0 by default).
 
@@ -157,6 +174,6 @@ Install the dependency into your project
 
 Everyone is welcome to collaborate to this project.
 
-Just create a new branch from dev with a meaningful name and do a Pull Request to dev.
+Just create a new branch from dev with a meaningful name and do a Pull Request against dev.
 
 If the fix / feature is related to any open issue please provide a proper link.
