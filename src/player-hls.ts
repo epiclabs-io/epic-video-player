@@ -1,5 +1,5 @@
 import Hls from 'hls.js';
-import { IPlayerConfig, IRendition, PlayerType } from './models';
+import { IPlayerConfig, IRendition } from './models';
 import { Player } from './player';
 
 export class PlayerHls extends Player<Hls> {
@@ -18,7 +18,11 @@ export class PlayerHls extends Player<Hls> {
     });
   }
 
-  constructor(url: string, htmlPlayer: HTMLVideoElement, config: IPlayerConfig) {
+  constructor(
+    url: string,
+    htmlPlayer: HTMLVideoElement,
+    config: IPlayerConfig,
+  ) {
     super(url, htmlPlayer, config);
   }
 
@@ -47,15 +51,15 @@ export class PlayerHls extends Player<Hls> {
           }
         }
 
-      // hls is not supported but the native player is able to load the video
-      // some features (like renditions getter/setter) will NOT be available
+        // hls is not supported but the native player is able to load the video
+        // some features (like renditions getter/setter) will NOT be available
       } else if (this.htmlPlayer.canPlayType('application/vnd.apple.mpegurl')) {
         this.player = undefined;
         this.htmlPlayer.src = this.url;
       }
 
       this.initListeners();
-      this.playerType = PlayerType.HLS;
+      this.playerType = 'HLS';
     } catch (e) {
       console.error(e);
     }
@@ -82,7 +86,10 @@ export class PlayerHls extends Player<Hls> {
     return PlayerHls.convertLevelsToIRenditions(this.player.levels);
   }
 
-  public setRendition(rendition: IRendition | number, immediately: boolean): void {
+  public setRendition(
+    rendition: IRendition | number,
+    immediately: boolean,
+  ): void {
     if (this.player === undefined) {
       return;
     }
@@ -99,12 +106,12 @@ export class PlayerHls extends Player<Hls> {
       if (renditions !== undefined && renditions.length > 0) {
         for (let i = 0; i < renditions.length; i++) {
           if (renditions[i].bitrate === rendition.bitrate) {
-            return this.setRendition(i,  immediately);
+            return this.setRendition(i, immediately);
           }
         }
       }
     }
-    return this.setRendition(-1,  immediately);
+    return this.setRendition(-1, immediately);
   }
 
   public getCurrentRendition(): IRendition {

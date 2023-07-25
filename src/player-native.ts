@@ -1,20 +1,23 @@
-import { IPlayerConfig, IRendition, PlayerType } from './models';
+import { IPlayerConfig, IRendition } from './models';
 import { Player } from './player';
 
 export class PlayerNative extends Player<HTMLVideoElement> {
+  constructor(
+    url: string,
+    htmlPlayer: HTMLVideoElement,
+    config: IPlayerConfig,
+  ) {
+    super(url, htmlPlayer, config);
+  }
 
-    constructor(url: string, htmlPlayer: HTMLVideoElement, config: IPlayerConfig) {
-        super(url, htmlPlayer, config);
-    }
+  public load(): void {
+    this.reset();
+    this.player = this.htmlPlayer;
+    this.htmlPlayer.src = this.url;
+    this.playerType = 'NATIVE';
 
-    public load(): void {
-        this.reset();
-        this.player = this.htmlPlayer;
-        this.htmlPlayer.src = this.url;
-        this.playerType = PlayerType.NATIVE;
-
-        this.initListeners();
-    }
+    this.initListeners();
+  }
 
     public destroy(): void {
         this.htmlPlayer.src = '';

@@ -1,5 +1,5 @@
 import * as dashjs from 'dashjs';
-import { IPlayerConfig, IRendition, PlayerType } from './models';
+import { IPlayerConfig, IRendition } from './models';
 import { Player } from './player';
 
 export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
@@ -12,7 +12,11 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
     return;
   }
 
-  constructor(url: string, htmlPlayer: HTMLVideoElement, config: IPlayerConfig) {
+  constructor(
+    url: string,
+    htmlPlayer: HTMLVideoElement,
+    config: IPlayerConfig,
+  ) {
     super(url, htmlPlayer, config);
   }
 
@@ -64,7 +68,7 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
       }
 
       this.initListeners();
-      this.playerType = PlayerType.DASH;
+      this.playerType = 'DASH';
     } catch (e) {
       console.error(e);
     }
@@ -86,10 +90,15 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
       return;
     }
 
-    return this.convertBitratesToIRenditions(this.player.getBitrateInfoListFor('video'));
+    return this.convertBitratesToIRenditions(
+      this.player.getBitrateInfoListFor('video'),
+    );
   }
 
-  public setRendition(rendition: IRendition | number, immediately: boolean): void {
+  public setRendition(
+    rendition: IRendition | number,
+    immediately: boolean,
+  ): void {
     if (this.player === undefined) {
       return;
     }
@@ -154,8 +163,12 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
     return;
   }
 
-  private convertBitratesToIRenditions(bitrates: dashjs.BitrateInfo[]): IRendition[] {
-    if (bitrates === undefined || bitrates.length === 0) { return; }
+  private convertBitratesToIRenditions(
+    bitrates: dashjs.BitrateInfo[],
+  ): IRendition[] {
+    if (bitrates === undefined || bitrates.length === 0) {
+      return;
+    }
 
     let videoInfo: dashjs.MediaInfo;
     try {
@@ -173,11 +186,17 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
 
     return bitrates.map((b: dashjs.BitrateInfo) => {
       return {
-        audioCodec: audioInfo && audioInfo.codec ? PlayerDash.getCodecName(audioInfo.codec) : undefined,
+        audioCodec:
+          audioInfo && audioInfo.codec
+            ? PlayerDash.getCodecName(audioInfo.codec)
+            : undefined,
         bitrate: b.bitrate !== undefined ? b.bitrate : undefined,
         height: b.height !== undefined ? b.height : undefined,
         level: b.qualityIndex !== undefined ? b.qualityIndex : undefined,
-        videoCodec: videoInfo && videoInfo.codec ? PlayerDash.getCodecName(videoInfo.codec) : undefined,
+        videoCodec:
+          videoInfo && videoInfo.codec
+            ? PlayerDash.getCodecName(videoInfo.codec)
+            : undefined,
         width: b.width !== undefined ? b.width : undefined,
       };
     });
