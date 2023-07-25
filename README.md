@@ -1,8 +1,8 @@
-# Epic Video Player · ![Travis CI Status](https://api.travis-ci.org/epiclabs-io/epic-video-player.svg?branch=master)
+# Epic Video Player
 
 JS library to wrap different video libraries. Currently supporting native HTML video (WebM, Ogg Theora Vorbis, Ogg Opus, Ogg FLAC and MP4 H.264), MPEG-DASH ([dash.js](https://github.com/Dash-Industry-Forum/dash.js)) and HLS ([hls.js](https://github.com/video-dev/hls.js)) streams.
 
-This project is not intended to be used in production since the result is a heavy library (over 800 KiB minified).
+This project is not intended to be used in production since the result is a heavy library (over 1 MB minified!).
 
 # ToC
 
