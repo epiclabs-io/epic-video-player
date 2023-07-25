@@ -24,58 +24,21 @@ export class PlayerNative extends Player<HTMLVideoElement> {
         this.playerType = undefined;
     }
 
-    public getRenditions(): IRendition[] {
-        let renditions: IRendition[];
+  public getRenditions(): IRendition[] {
+    // no renditions information is provided by native browser player
+    return [];
+  }
 
-        if (this.htmlPlayer.videoTracks && this.htmlPlayer.videoTracks.length > 0) {
-            renditions = [];
-            // tslint:disable-next-line:prefer-for-of
-            for (let i = 0; i < this.htmlPlayer.videoTracks.length; i++) {
-                const vt = this.htmlPlayer.videoTracks[i];
-                if (vt) {
-                    renditions.push({
-                        bitrate: 0,
-                        height: this.htmlPlayer.videoHeight,
-                        name: vt.label || this.htmlPlayer.videoHeight.toString(),
-                        width: this.htmlPlayer.videoWidth,
-                    });
-                }
-            }
-        }
+  public setRendition(
+    rendition: number | IRendition, // eslint-disable-line
+    immediately?: boolean, // eslint-disable-line
+  ): void {
+    // no renditions capabilities are provided by native browser player
+    return;
+  }
 
-        return renditions;
-    }
-
-    public setRendition(rendition: number | IRendition, immediately?: boolean): void {
-        if (this.htmlPlayer.videoTracks && this.htmlPlayer.videoTracks.length > 0) {
-            if (typeof rendition === 'number') {
-                if (rendition < this.htmlPlayer.videoTracks.length) {
-                    this.htmlPlayer.videoTracks[rendition].selected = true;
-                }
-            } else {
-                // tslint:disable-next-line:prefer-for-of
-                for (let i = 0; i < this.htmlPlayer.videoTracks.length; i++) {
-                    const vt = this.htmlPlayer.videoTracks[i];
-                    if (rendition.name && vt.label === rendition.name) {
-                        vt.selected = true;
-                    }
-                }
-            }
-        }
-    }
-
-    public getCurrentRendition(): IRendition {
-        if (this.htmlPlayer.videoTracks && this.htmlPlayer.videoTracks.length > 0 &&
-          this.htmlPlayer.videoTracks.selectedIndex < this.htmlPlayer.videoTracks.length) {
-            const track = this.htmlPlayer.videoTracks[this.htmlPlayer.videoTracks.selectedIndex];
-            return {
-                bitrate: 0,
-                height: this.htmlPlayer.videoHeight,
-                name: track.label || '',
-                width: this.htmlPlayer.videoWidth,
-            };
-        }
-
-        return undefined;
-    }
+  public getCurrentRendition(): IRendition {
+    // no renditions capabilities are provided by native browser player
+    return undefined;
+  }
 }
