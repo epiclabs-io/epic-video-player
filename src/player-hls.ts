@@ -72,9 +72,13 @@ export class PlayerHls extends Player<Hls> {
         this.player.destroy();
       }
     } catch (e) {
-      console.warn(e);
+      console.error(e);
     } finally {
+      this.htmlPlayer.pause();
+      this.htmlPlayer.removeAttribute('src');
+      this.htmlPlayer.load();
       this.playerType = undefined;
+      this.reset();
     }
   }
 

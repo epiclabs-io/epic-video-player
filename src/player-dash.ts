@@ -76,12 +76,18 @@ export class PlayerDash extends Player<dashjs.MediaPlayerClass> {
 
   public destroy(): void {
     try {
+      this.htmlPlayer.src = '';
       if (this.player !== undefined) {
         this.player.reset();
       }
-      this.playerType = undefined;
     } catch (e) {
-      // nothing to do
+      console.error(e);
+    } finally {
+      this.htmlPlayer.pause();
+      this.htmlPlayer.removeAttribute('src');
+      this.htmlPlayer.load();
+      this.playerType = undefined;
+      this.reset();
     }
   }
 

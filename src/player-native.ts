@@ -19,10 +19,13 @@ export class PlayerNative extends Player<HTMLVideoElement> {
     this.initListeners();
   }
 
-    public destroy(): void {
-        this.htmlPlayer.src = '';
-        this.playerType = undefined;
-    }
+  public destroy(): void {
+    this.htmlPlayer.pause();
+    this.htmlPlayer.removeAttribute('src');
+    this.htmlPlayer.load();
+    this.playerType = undefined;
+    this.reset();
+  }
 
   public getRenditions(): IRendition[] {
     // no renditions information is provided by native browser player
