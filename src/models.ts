@@ -1,7 +1,7 @@
 import { MediaPlayerClass } from 'dashjs';
 import Hls from 'hls.js';
 
-export const PlayerType = ['DASH', 'HLS', 'NATIVE'];
+export const PlayerType = ['DASH', 'HLS', 'NATIVE'] as const;
 export type IPlayerType = (typeof PlayerType)[0];
 
 export interface ITimeRanges {

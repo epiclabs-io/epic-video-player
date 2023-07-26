@@ -46,7 +46,7 @@ Install the dependency into your project
         ...
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', () => {
-                var myEvp = evp.newPlayer('https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd', document.getElementById('my-video'));
+                const myEvp = evp.newPlayer('https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd', document.getElementById('my-video'));
                 myEvp.htmlPlayer.oncanplay = () => {
                     myEvp.currentTime(14);
                 };
