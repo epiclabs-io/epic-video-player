@@ -14,7 +14,7 @@
     "url": "git+https://github.com/epiclabs-io/epic-video-player.git"
   },
   "license": "MIT",
-  "homepage": "https://github.com/epiclabs-io/epic-video-player#readme",
+  "homepage": "https://adripanico.github.io/epic-video-player",
   "bugs": {
     "url": "https://github.com/epiclabs-io/epic-video-player/issues"
   },
@@ -42,7 +42,9 @@
     "_utest": "jest --coverage --env=jsdom",
     "test": "run-s _lint _utest",
     "start": "webpack-dev-server --config webpack.config.dev.js --host 0.0.0.0 --port 8085 --open --mode development",
-    "build-dev": "webpack --config webpack.config.dev.js"
+    "build-dev": "webpack --config webpack.config.dev.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist/bundle"
   },
   "dependencies": {
     "dashjs": "^4.7.1",
@@ -54,6 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.45.0",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.3",
     "jest": "^29.6.1",
     "npm-run-all": "^4.1.5",
