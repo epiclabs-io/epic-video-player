@@ -1,68 +1,70 @@
 {
   "name": "@epiclabs/epic-video-player",
   "version": "0.0.12",
-  "description": "Video player wrapper to support different video sources with unified interface",
+  "description": "Video player wrapper to support different video sources with an unified interface",
   "main": "./index.js",
   "types": "./index.d.ts",
+  "author": {
+    "name": "Adrian Caballero",
+    "email": "adripanicodev@gmail.com",
+    "url": "https://github.com/adripanico"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epiclabs-io/epic-video-player.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/epiclabs-io/epic-video-player#readme",
+  "bugs": {
+    "url": "https://github.com/epiclabs-io/epic-video-player/issues"
+  },
+  "keywords": [
+    "video",
+    "player",
+    "video player",
+    "dash",
+    "dashjs",
+    "hls",
+    "hls.js",
+    "mp4",
+    "ogg"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "_clean": "rimraf dist",
     "_transpile": "tsc",
     "_bundle": "webpack --config webpack.config.prod.js",
     "_npm_ready": "cpy CHANGELOG.md LICENSE package.json README.md ./dist/",
     "build": "run-s _clean _bundle _transpile _npm_ready",
-    "_lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "_lint": "eslint src --ext .js,.ts",
     "_utest": "jest --coverage --env=jsdom",
     "test": "run-s _lint _utest",
     "start": "webpack-dev-server --config webpack.config.dev.js --host 0.0.0.0 --port 8085 --open --mode development",
     "build-dev": "webpack --config webpack.config.dev.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/epiclabs-io/epic-video-player.git"
-  },
-  "keywords": [
-    "epic",
-    "labs",
-    "epiclabs",
-    "video",
-    "player",
-    "dash",
-    "dashjs",
-    "hls",
-    "hls.js"
-  ],
-  "author": "Adrian Caballero <https://github.com/adripanico>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/epiclabs-io/epic-video-player/issues"
-  },
-  "homepage": "https://github.com/epiclabs-io/epic-video-player#readme",
   "dependencies": {
-    "dashjs": "3.0.0",
-    "hls.js": "0.12.4"
+    "dashjs": "^4.7.1",
+    "hls.js": "^1.4.10"
   },
   "devDependencies": {
-    "@types/hls.js": "0.12.5",
-    "@types/jest": "24.0.23",
-    "@types/node": "12.12.14",
-    "cpy-cli": "2.0.0",
-    "html-webpack-plugin": "3.2.0",
-    "jest": "24.9.0",
-    "npm-run-all": "4.1.5",
-    "rimraf": "3.0.0",
-    "ts-jest": "24.2.0",
-    "ts-loader": "6.2.1",
-    "tslib": "1.10.0",
-    "tslint": "5.20.1",
-    "typescript": "3.7.3",
-    "uglifyjs-webpack-plugin": "2.2.0",
-    "url-loader": "3.0.0",
-    "webpack": "4.41.2",
-    "webpack-auto-inject-version": "1.2.2",
-    "webpack-cli": "3.3.10",
-    "webpack-dev-server": "3.9.0"
-  },
-  "publishConfig": {
-    "access": "public"
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.5",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "cpy-cli": "^5.0.0",
+    "eslint": "^8.45.0",
+    "html-webpack-plugin": "^5.5.3",
+    "jest": "^29.6.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.1",
+    "ts-jest": "^29.1.1",
+    "ts-loader": "^9.4.4",
+    "tslib": "^2.6.1",
+    "typescript": "^5.1.6",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   }
 }

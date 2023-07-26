@@ -16,13 +16,13 @@ This project is not intended to be used in production since the result is a heav
 # Installation
 
 Install the dependency into your project
-    
+
     $ npm install @epiclabs/epic-video-player --save
 
 # Using it as CommonJS module
 
     import { newPlayer } from '@epiclabs/epic-video-player';
-    
+
     ...
 
     let myPlayer = newPlayer('some-video-url', document.getElementById('html-video-id'));
@@ -67,55 +67,55 @@ Install the dependency into your project
 - **newPlayer(url: string, htmlPlayer: HtmlVideoElement, config?: IPlayerConfig)**
 
   Creates a new instance of epic-video-player.
-  
+
 - **pause()**
-  
+
   Stops playback of the video.
 
 - **play()**
-  
+
   Begins playback of the video.
 
 - **currentTime(secs?: number)**
 
   It can receive a double indicating the number of seconds, in which case it will seek the video to the new time.
-    
+
   If not parameters are provided it will return the current playback time in seconds.
 
 - **volume(perc?: number)**
 
   It can receive a double (from 0.0 to 1.0) indicating the level of the volume, in which case it will set the volume to the new level.
-    
+
   If not parameters are provided, it will return the current volume level.
 
 - **playbackRate(rate?: number)**
 
   It can receive a double indicating the rate at which the video will be played back (1.0 by default).
-    
+
   For negative numbers the video will be played backwards.
-   
+
   If not parameters are provided it will return the current playback rate.
-  
+
 - **getStats()**
 
   Returns video stats as IStats.
-  
+
 - **getRenditions()**
-  
+
   Returns the renditions of the video as an array of IRendition.
 
 - **setRendition(rendition: IRendition | number, immediately: boolean)**
 
   Set the desired rendition. It will not drop the already buffered segments.
-  
+
   If *rendition* is -1, the rendition selection will be set to automatic.
-  
+
   If *immediately* is true, the buffer will be cleaned and the new rendition will be automatically rendered. In some cases (i.e. dashjs) it is not yet possible.
 
 - **getCurrentRendition()**
 
   Returns the current rendition as a IRendition.
-  
+
 ## Object interfaces
 
 | Name | Properties |
@@ -125,7 +125,7 @@ Install the dependency into your project
 | IRendition | audioCodec?: string;<br>bitrate: number;<br>height: number;<br>level?: number;<br>name?: string;<br>videoCodec?: string;<br>width: number; |
 | IPlayerConfig | initialRenditionKbps?: number;<br>initialRenditionIndex?: number;<br>(*)type?: string; |
 
-*Type examples: 'application/dash+xml', 'application/x-mpegURL', ...* 
+*Type examples: 'application/dash+xml', 'application/x-mpegURL', ...*
 
 # Development
 
@@ -134,7 +134,7 @@ Install the dependency into your project
     $ npm i
 
 1. For development:
- 
+
        $ npm run start
 
 2. To build unminified version with source maps:
