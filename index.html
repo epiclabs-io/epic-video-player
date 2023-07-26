@@ -1,94 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>epic-video-player demo</title>
-</head>
-<body>
-    <select id="source-selector"></select><br><br>
+    <style>
+      #source-selector {
+        margin-bottom: 1rem;
+      }
+      #rendition-selector {
+        margin-top: 1rem;
+      }
+      #stats {
+        padding: 0.5rem;
+        border: 1px solid gray;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3 id="player-type"></h3>
 
-    <video id="my-video" style="width: 100%;" autoplay controls muted></video>
+    <select id="source-selector"></select>
 
-    <select id="rendition-selector"><option value="-1">Auto</option></select>
+    <video id="my-video" style="width: 100%" autoplay controls muted></video>
+
+    <select id="rendition-selector">
+      <option value="-1">Auto</option>
+    </select>
     <button id="rendition-button">Change!</button>
 
+    <h4>Stats</h5>
+    <pre id="stats"></pre>
+
     <script type="text/javascript">
-        var sources = [{
-            src: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
-            label: 'MPEG-DASH',
-        }, {
-            src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
-            label: 'HLS',
-        }, {
-            src: 'http://techslides.com/demos/sample-videos/small.mp4',
-            label: 'MP4',
-        }, {
-            src: 'http://dl5.webmfiles.org/elephants-dream.webm',
-            label: 'WebM',
-        }, {
-            src: 'https://file-examples.com/wp-content/uploads/2018/04/file_example_OGG_480_1_7mg.ogg',
-            label: 'Ogg',
-        }];
+      let myPlayer = window.myPlayer;
+      var sources = [
+        {
+          src: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
+          label: 'MPEG-DASH',
+        },
+        {
+          src: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+          label: 'HLS',
+        },
+        {
+          src: 'http://techslides.com/demos/sample-videos/small.mp4',
+          label: 'MP4',
+        },
+        {
+          src: 'https://dl6.webmfiles.org/elephants-dream.webm',
+          label: 'WebM',
+        },
+        {
+          src: 'https://archive.org/download/SampleVideo_908/Bear.ogv',
+          label: 'Ogg',
+        },
+      ];
 
-        function initSourcesDemoFeatures() {
-            const select = document.getElementById('source-selector');
-            for (const source of sources) {
-                const option = document.createElement('option');
-                option.setAttribute('value', source.src);
-                option.text = source.label;
-                select.appendChild(option);
-            }
-
-            select.onchange = () => {
-                window.myEvp.destroy();
-                const selectedValue = select.options[select.selectedIndex].value;
-                window.myEvp = evp.newPlayer(selectedValue, document.getElementById('my-video'));
-            };
+      function initSourcesDemoFeatures() {
+        const select = document.getElementById('source-selector');
+        for (const source of sources) {
+          const option = document.createElement('option');
+          option.setAttribute('value', source.src);
+          option.text = source.label;
+          select.appendChild(option);
         }
 
-        function initRenditionsDemoFeatures() {
-            myEvp.htmlPlayer.oncanplay = () => {
-                cleanRenditionsInSelector();
-                addRenditionsToSelector(myEvp.getRenditions());
-            };
-            document.getElementById('rendition-button').addEventListener('click', () => changeRendition());
+        select.onchange = () => {
+          myPlayer.destroy();
+          const selectedValue = select.options[select.selectedIndex].value;
+          myPlayer = evp.newPlayer(
+            selectedValue,
+            document.getElementById('my-video'),
+          );
+          updatePlayerType();
+        };
+      }
+
+      function initRenditionsDemoFeatures() {
+        myPlayer.htmlPlayer.oncanplay = () => {
+          cleanRenditionsInSelector();
+          addRenditionsToSelector(myPlayer.getRenditions());
+        };
+        document
+          .getElementById('rendition-button')
+          .addEventListener('click', () => changeRendition());
+      }
+
+      function cleanRenditionsInSelector() {
+        const select = document.getElementById('rendition-selector');
+        while (select.children[1]) {
+          select.children[1].remove();
         }
+      }
 
-        function cleanRenditionsInSelector() {
-            const select = document.getElementById('rendition-selector');
-            while (select.children[1]) {
-                select.children[1].remove();
-            }
+      function addRenditionsToSelector(renditions) {
+        const select = document.getElementById('rendition-selector');
+        const button = document.getElementById('rendition-button');
+        if (!renditions.length) {
+          select.setAttribute('disabled', '');
+          button.setAttribute('disabled', '');
+        } else {
+          select.removeAttribute('disabled');
+          button.removeAttribute('disabled');
+          for (const rendition of renditions) {
+            const option = document.createElement('option');
+            option.setAttribute('value', JSON.stringify(rendition));
+            const dimensions = `${rendition.width}x${rendition.height}`;
+            const bitrate = `${Math.ceil(rendition.bitrate / 1000)} kbps`;
+            option.text = `${dimensions} - ${bitrate}`;
+            select.appendChild(option);
+          }
         }
+      }
 
-        function addRenditionsToSelector(renditions) {
-            const select = document.getElementById('rendition-selector');
-            for (const rendition of renditions) {
-                const option = document.createElement('option');
-                option.setAttribute('value', JSON.stringify(rendition));
-                option.text = rendition.width + 'x' + rendition.height + ' ' + Math.ceil(rendition.bitrate / 1000) + ' kbps';
-                select.appendChild(option);
-            }
+      function changeRendition() {
+        const select = document.getElementById('rendition-selector');
+        const selectedRendition = select.options[select.selectedIndex].value;
+        if (selectedRendition === '-1') {
+          myPlayer.setRendition(-1, true);
+        } else {
+          myPlayer.setRendition(JSON.parse(selectedRendition), true);
         }
+      }
 
-        function changeRendition() {
-            const select = document.getElementById('rendition-selector');
-            const selectedRendition = select.options[select.selectedIndex].value;
-            if (selectedRendition === '-1') {
-                myEvp.setRendition(-1, true);
-            } else {
-                myEvp.setRendition(JSON.parse(selectedRendition), true);
-            }
-        }
+      function updatePlayerType() {
+        const placeholder = document.getElementById('player-type');
+        placeholder.innerText = `Using ${myPlayer.playerType} Player`;
+      }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            window.myEvp = evp.newPlayer(sources[0].src, document.getElementById('my-video'));
+      function updateStats() {
+        const stats = document.getElementById('stats');
+        setInterval(() => {
+          if (myPlayer) {
+            stats.innerText = JSON.stringify(myPlayer.getStats(), null, 2);
+          } else {
+            stats.innerText = '';
+          }
+        }, 2_000);
+      }
 
-            initSourcesDemoFeatures();
-            initRenditionsDemoFeatures();
-        });
+      document.addEventListener('DOMContentLoaded', () => {
+        myPlayer = evp.newPlayer(
+          sources[0].src,
+          document.getElementById('my-video'),
+        );
+
+        updateStats();
+        updatePlayerType();
+        initSourcesDemoFeatures();
+        initRenditionsDemoFeatures();
+      });
     </script>
-</body>
+  </body>
 </html>
