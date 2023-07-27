@@ -1,13 +1,17 @@
-import { IPlayerConfig, IRendition, IStats, PlayerType } from './models';
+import { IPlayerConfig, IPlayerType, IRendition, IStats } from './models';
 import * as Utils from './utils';
 
 export abstract class Player<T> {
   public player: T;
-  public playerType: PlayerType;
+  public playerType: IPlayerType;
   private stats: IStats;
   private loadStartTime: number;
 
-  constructor(protected url: string, public htmlPlayer: HTMLVideoElement, public config: IPlayerConfig) {
+  constructor(
+    protected url: string,
+    public htmlPlayer: HTMLVideoElement,
+    public config: IPlayerConfig,
+  ) {
     this.resetStats();
     this.load();
     this.initListeners();
@@ -19,7 +23,10 @@ export abstract class Player<T> {
 
   public abstract getRenditions(): IRendition[];
 
-  public abstract setRendition(rendition: IRendition | number, immediately: boolean): void;
+  public abstract setRendition(
+    rendition: IRendition | number,
+    immediately: boolean,
+  ): void;
 
   public abstract getCurrentRendition(): IRendition;
 
@@ -31,8 +38,8 @@ export abstract class Player<T> {
     this.htmlPlayer.pause();
   }
 
-  public play() {
-    this.htmlPlayer.play();
+  public async play() {
+    await this.htmlPlayer.play();
   }
 
   public currentTime(secs?: number): void | number {
@@ -89,27 +96,31 @@ export abstract class Player<T> {
 
   protected updateStats = () => {
     this.stats = {
-      buffered: Utils.timeRangesToITimeRanges(Utils.getBuffered(this.htmlPlayer)),
+      buffered: Utils.timeRangesToITimeRanges(
+        Utils.getBuffered(this.htmlPlayer),
+      ),
       droppedFrames: Utils.getDroppedFrames(this.htmlPlayer),
       duration: Utils.getDuration(this.htmlPlayer),
       loadTime: this.stats.loadTime,
       played: Utils.timeRangesToITimeRanges(Utils.getPlayed(this.htmlPlayer)),
-      seekable: Utils.timeRangesToITimeRanges(Utils.getSeekable(this.htmlPlayer)),
+      seekable: Utils.timeRangesToITimeRanges(
+        Utils.getSeekable(this.htmlPlayer),
+      ),
     };
-  }
+  };
 
   protected loadStart = () => {
     this.updateStats();
     if (this.stats.loadTime === -1) {
-      this.loadStartTime = (new Date()).getTime();
+      this.loadStartTime = new Date().getTime();
     }
-  }
+  };
 
   protected loadEnd = () => {
     this.updateStats();
     if (this.stats.loadTime === -1) {
-      this.stats.loadTime = ((new Date()).getTime() - this.loadStartTime) / 1000;
+      this.stats.loadTime = (new Date().getTime() - this.loadStartTime) / 1000;
     }
     this.updateStats();
-  }
+  };
 }

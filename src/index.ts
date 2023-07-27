@@ -8,7 +8,11 @@ export * from './player';
 export * from './player-hls';
 export * from './player-dash';
 
-export function newPlayer(url: string, htmlVideo: HTMLVideoElement, config?: IPlayerConfig) {
+export function newPlayer(
+  url: string,
+  htmlVideo: HTMLVideoElement,
+  config?: IPlayerConfig,
+) {
   if (config && config.type) {
     if (config.type === 'application/dash+xml') {
       return new PlayerDash(url, htmlVideo, config);
@@ -18,7 +22,7 @@ export function newPlayer(url: string, htmlVideo: HTMLVideoElement, config?: IPl
       return new PlayerNative(url, htmlVideo, config);
     }
   } else {
-    const filename = url.substr(url.lastIndexOf('/') + 1);
+    const filename = url.substring(url.lastIndexOf('/') + 1);
     const extension = filename.split('.').pop();
 
     if (extension === 'm3u8') {
