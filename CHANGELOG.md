@@ -7,6 +7,9 @@ This document will track the changes of this project, based on [Keep a Changelog
 - Add Youtube compatibility.
 - Fix tests after latest major update.
 
+## [0.1.1] - 2023-07-27
+- Fix type definition.
+
 ## [0.1.0] - 2023-07-25
 - Bump all dependencies to fix vulnerabilities and match the latest video players updates.
 - Major refactor: linting, removing unnecessary code and removing usages of `any`.
